@@ -1,5 +1,5 @@
 <?php
-class AliasHelper extends AppHelper{
+class AliasHelper{
 	var $unset = true;
 	var $settings = array();
 	var $view;
