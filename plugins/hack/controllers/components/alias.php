@@ -28,6 +28,7 @@ class AliasComponent{
 			}
 			// component needs to have "enabled" parameter
 			$object->enabled = isset($loaded[$from]) ? $loaded[$from]->enabled : true;
+			$Component->_loadComponents($object, $name);
 			
 			if(method_exists($object, 'initialize')){
 				//See current method timing to prevent the component from being initialized twice.
