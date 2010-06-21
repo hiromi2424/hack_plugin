@@ -27,7 +27,7 @@ class AliasHelper{
 		$from = Inflector::variable($from);
 		$to   = Inflector::variable($to);
 		
-		$this->view->_loadHelpers($this->view->_loaded, array($to));
+		$this->view->_loadHelpers($this->view->loaded, array($to));
 		
 		list($plugin, $to) = pluginSplit($to);
 		
