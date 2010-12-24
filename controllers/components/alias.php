@@ -28,6 +28,9 @@ class AliasComponent{
 			}
 			// component needs to have "enabled" parameter
 			$object->enabled = isset($loaded[$from]) ? $loaded[$from]->enabled : true;
+			if (!isset($object->components)) {
+				$object->components = array();
+			}
 			$Component->_loadComponents($object, $name);
 
 			if (method_exists($object, 'initialize')) {
@@ -50,6 +53,9 @@ class AliasComponent{
 
 			// must not do =&
 			$loaded[$from] = $object;
+			if (!isset($controller->$from)) {
+				$controller->$from =& $loaded[$from];
+			}
 		}
 	}
 }
