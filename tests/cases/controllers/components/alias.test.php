@@ -5,7 +5,7 @@ App::import('Controller', array('Component', 'Controller'), false);
 class AliasComponentTestController extends Controller {
 	var $name = 'AliasComponentTest';
 	var $components = array(
-		'HackPlugin.Alias' => array(
+		'Hack.Alias' => array(
 			'Cookie' => 'ExtendedCookie',
 		),
 		'Cookie',
@@ -72,7 +72,7 @@ class AliasTestCase extends CakeTestCase {
 			'HackAliasTest' => array(
 				'piyo' => 1,
 			),
-			'HackPlugin.Alias' => array(
+			'Hack.Alias' => array(
 				'HackAliasTest' => array(
 					'HackAliasTestOverride' => array(
 						'fuga' => 2,
@@ -94,7 +94,7 @@ class AliasTestCase extends CakeTestCase {
 		$this->assertEqual(get_class($this->Controller->Cookie), 'ExtendedCookieComponent');
 
 		$this->_reset(array(
-			'HackPlugin.Alias' => array(
+			'Hack.Alias' => array(
 				'HackAliasTest' => array(
 					'HackAliasTestOverride' => array(
 						'fuga' => 2,
@@ -111,7 +111,7 @@ class AliasTestCase extends CakeTestCase {
 	}
 
 	function testLoadMethods() {
-		$this->_reset('HackPlugin.Alias', true);
+		$this->_reset('Hack.Alias', true);
 		$this->assertTrue($this->Controller->Alias->loadComponent('HackAliasTest', array('piyo' => 1)));
 		$this->assertEqual(get_class($this->Controller->HackAliasTest), 'HackAliasTestComponent');
 		$this->assertEqual($this->Controller->HackAliasTest->piyo, 1);
@@ -123,7 +123,7 @@ class AliasTestCase extends CakeTestCase {
 		$this->assertEqual($this->Controller->HackAliasTest->hoge, 3);
 		$this->assertFalse($this->Controller->Alias->loadComponent('NotDefined'));
 
-		$this->_reset('HackPlugin.Alias', true);
+		$this->_reset('Hack.Alias', true);
 		$this->Controller->Alias->loadComponents(array(
 			'HackAliasTest' => array(
 				'HackAliasTestOverride' => array(
@@ -140,7 +140,7 @@ class AliasTestCase extends CakeTestCase {
 	}
 
 	function testSessionComponent() {
-		$this->_reset('HackPlugin.Alias', true);
+		$this->_reset('Hack.Alias', true);
 		$this->Controller->base = '/base';
 		$this->assertTrue($this->Controller->Alias->loadComponent('Session'));
 		$this->assertEqual(get_class($this->Controller->Session), 'SessionComponent');
