@@ -34,6 +34,24 @@ class HackAliasTestOverrideComponent extends HackAliasTestComponent {
 }
 
 
+class SubComponentTestComponent extends Object {
+	var $components = array(
+		'SubComponent',
+	);
+}
+
+class SubComponentTestAliasedComponent extends SubComponentTestComponent {
+}
+
+class SubComponentComponent extends Object {
+	var $initialized = false;
+
+	function initialize() {
+		$this->initialized = true;
+	}
+
+}
+
 class AliasTestCase extends CakeTestCase {
 	var $Controller = null;
 
@@ -146,4 +164,11 @@ class AliasTestCase extends CakeTestCase {
 		$this->assertEqual(get_class($this->Controller->Session), 'SessionComponent');
 		$this->assertEqual($this->Controller->Session->path, '/base');
 	}
+
+	function testSubComponentInitialized() {
+		$this->_reset(array('Hack.Alias' => array('SubComponentTest' => 'SubComponentTestAliased')), true);
+		$this->assertEqual(get_class($this->Controller->SubComponentTest->SubComponent), 'SubComponentComponent');
+		$this->assertTrue($this->Controller->SubComponentTest->SubComponent->initialized);
+	}
+
 }

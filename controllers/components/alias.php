@@ -41,7 +41,20 @@ class AliasComponent{
 		if (!isset($object->components)) {
 			$object->components = array();
 		}
+
+		$previouslyLoaded = array_keys($loaded);
 		$Component->_loadComponents($object, $name);
+		// initialize sub componets that has not been loaded within controller
+		$newSubComponents = array_diff(array_keys($loaded), $previouslyLoaded);
+		if (!empty($newSubComponents)) {
+			foreach ($newSubComponents as $newSubComponent) {
+				$NewSubComponent =& $loaded[$newSubComponent];
+				if ($NewSubComponent->enabled && method_exists($NewSubComponent, 'initialize')) {
+					$settings = isset($Component->__settings[$newSubComponent]) ? $Component->__settings[$newSubComponent] : array();
+					$NewSubComponent->initialize($this->Controller, $settings);
+				}
+			}
+		}
 
 		if (method_exists($object, 'initialize')) {
 			//See current method timing to prevent the component from being initialized twice.
