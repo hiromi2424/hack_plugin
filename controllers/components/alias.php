@@ -88,7 +88,7 @@ class AliasComponent{
 		if (!isset($this->Controller->$from) || get_class($this->Controller->$from) !== $class) {
 			$this->Controller->$from = $loaded[$from];
 		}
-		return true;
+		return $object;
 	}
 
 	function loadComponent($component, $settings = array(), $startup = true) {
